@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WCMp Advanced Shipping 1.0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-13 07:26+0000\n"
+"POT-Creation-Date: 2020-08-13 13:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -14,66 +14,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: classes/class-wcmp-advance-shipping-admin.php:126
-#: classes/class-wcmp-advance-shipping-frontend.php:98
-msgid "Table rates Updated"
+#: classes/class-wcmp-advance-shipping-template.php:16
+msgid "Table Rates"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:62 
 #: templates/wcmp_advance_shipping_template_table_rate.php:40
 msgid "Table Rates: "
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:67 
 #: templates/wcmp_advance_shipping_template_table_rate.php:46
 msgid "Select Shipping"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:68 
 #: templates/wcmp_advance_shipping_template_table_rate.php:47
 msgid "Condition"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:69 
 #: templates/wcmp_advance_shipping_template_table_rate.php:48
 msgid "Min"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:70 
 #: templates/wcmp_advance_shipping_template_table_rate.php:49
 msgid "Max"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:71 
 #: templates/wcmp_advance_shipping_template_table_rate.php:50
 msgid "Break"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:72 
 #: templates/wcmp_advance_shipping_template_table_rate.php:51
 msgid "Abort"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:73 
 #: templates/wcmp_advance_shipping_template_table_rate.php:52
 msgid "Row cost"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:74 
 #: templates/wcmp_advance_shipping_template_table_rate.php:53
 msgid "Item cost"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:75 
 #: templates/wcmp_advance_shipping_template_table_rate.php:54
 msgid "Kg cost"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:76 
 #: templates/wcmp_advance_shipping_template_table_rate.php:55
 #, php-format
 msgid "% cost"
 msgstr ""
 
+#: classes/class-wcmp-advance-shipping-template.php:77 
 #: templates/wcmp_advance_shipping_template_table_rate.php:56
 msgid "Label"
 msgstr ""
 
-#: templates/wcmp_advance_shipping_template_table_rate.php:86
+#: classes/class-wcmp-advance-shipping-template.php:93 
+#: templates/wcmp_advance_shipping_template_table_rate.php:87
 msgid "Add Shipping Rate"
 msgstr ""
 
-#: templates/wcmp_advance_shipping_template_table_rate.php:89
+#: classes/class-wcmp-advance-shipping-template.php:96 
+#: templates/wcmp_advance_shipping_template_table_rate.php:90
 msgid "Delete selected rows"
+msgstr ""
+
+#: classes/class-wcmp-advance-shipping-admin.php:131 
+#: classes/class-wcmp-advance-shipping-frontend.php:117
+msgid "Table rates Updated"
 msgstr ""
 
 #: templates/wcmp_advance_shipping_template_table_rate_item.php:3
