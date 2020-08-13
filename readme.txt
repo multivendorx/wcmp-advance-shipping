@@ -1,5 +1,5 @@
 === WCMp Advanced Shipping ===
-Contributors:   Dualcube, greyparrots
+Contributors:   wcmp
 Tags: wcmp advanced shipping,wc marketplace, wc market place, woocommerce product vendors, WooCommerce vendors, woocommerce marketplace, vendor, vendors, vendor system, woocommerce market place, WooCommerce multivendor, WooCommerce multi vendor, woocommerce vendors, woo vendors, WooCommerce vendors, Shipping,Woocommerce Shipping,wc marketplace shipping, wcmp shipping, multivendor, multi vendor, multi vendors,  multi seller
 Donate link: https://wc-marketplace.com/donate
 Requires at least: 4.4
