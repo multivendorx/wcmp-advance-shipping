@@ -94,8 +94,7 @@ Ans. This plugin is applicable for WCMp version 2.6.0.
 
 == Changelog ==
 
-= 1.1.0 =
-
+= 1.1.1 =
 * Added - Compatibility of WordPress 5.5 added
 * Fixed: Remove table rates title when it is also disabled
 * Updated: Language file.
