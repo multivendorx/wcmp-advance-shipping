@@ -49,10 +49,10 @@ to ensure that vendors don't gain  unnecessary access which might compromise the
 
 
 = Compatibility =
-* WooCommerce 3.1.5
-* WordPress 4.9.8
-* WC Marketplace 3.0+
-* table rate 3.0.12
+* WooCommerce 4.3.2
+* WordPress 5.5
+* WC Marketplace 3.5.5
+* table rate 3.0.15
 * Multilingual Support is included with the plugin and is fully compatible with WPML.
 
 
