@@ -5,6 +5,8 @@ class WCMp_Advance_Shipping_Frontend {
     public function __construct() {
         add_action('wcmp_before_update_shipping_method', array(&$this, 'save_wcmp_table_rate_shipping'));
         add_action('wcmp_frontend_enqueue_scripts', array(&$this, 'frontend_styles'));
+        add_filter( 'woocommerce_package_rates', array(&$this, 'wcmp_hide_table_rate_when_disabled' ), 99, 2 );
+
     }
 
     public function save_wcmp_table_rate_shipping($postedData) {
@@ -131,6 +133,18 @@ class WCMp_Advance_Shipping_Frontend {
         wp_register_style('wcmp_as_frontend', $frontend_style_path . 'css/frontend' . $suffix . '.css', array(), $WCMp_Advance_Shipping->version);
         wp_enqueue_style('wcmp_as_frontend');
        
+    }
+    // Hide table rate when no rates are found
+    public function wcmp_hide_table_rate_when_disabled( $rates, $package ) {
+        $table_rate = array();
+        foreach ( $rates as $rate_id => $rate ) {
+            if ( 'wcmp_vendor_shipping' === $rate->method_id  && strpos($rate->id, "table_rate") !== false ) {
+                unset($rates);
+            } else {
+                $table_rate[ $rate_id ] = $rate;
+            }
+        }
+        return !empty( $table_rate ) ? $table_rate : $rates;
     }
 
 }

@@ -4,8 +4,8 @@
  * Plugin Name: WCMp Advance Shipping
  * Plugin URI: https://wc-marketplace.com/
  * Description: A free Addon Bridging WC Marketplace and WC Table Rate Shipping.
- * Author: WC Marketplace, The Grey Parrots
- * Version: 1.1.0
+ * Author: WC Marketplace
+ * Version: 1.1.1
  * Author URI: https://wc-marketplace.com/
  * 
  * Text Domain: wcmp-advance-shipping
