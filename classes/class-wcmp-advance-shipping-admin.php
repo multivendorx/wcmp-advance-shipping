@@ -27,7 +27,8 @@ class WCMp_Advance_Shipping_Admin {
 
         wp_enqueue_script( 'wcmp_advanced_shipping_frontend', $frontend_style_path . 'js/frontend' . $suffix . '.js', array( 'jquery' ), $WCMp_Advance_Shipping->version);
         $screen = get_current_screen();
-        if($screen->id == 'toplevel_page_dc-vendor-shipping'){
+        $wcmp_shipping_screen = apply_filters( 'wcmp_table_rate_js_inclide_pages', array('wcmp_page_vendors', 'toplevel_page_dc-vendor-shipping'));
+        if (in_array($screen->id, $wcmp_shipping_screen)) {
             wp_enqueue_script( 'wcmp_advanced_shipping', $WCMp_Advance_Shipping->plugin_url . 'assets/global/js/advance-shipping.js', array( 'jquery' ), $WCMp_Advance_Shipping->version);
             $WCMp->localize_script('wcmp_advanced_shipping');
         }

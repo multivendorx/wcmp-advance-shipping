@@ -20,16 +20,24 @@ class WCMp_Advance_Shipping_Frontend {
             foreach ($postedData['settings'] as $key => $value) {
                 if (strpos($key, 'wcmp_table_rate') !== false) {
                     $key_arr = explode("[",$key);
-                    foreach ($key_arr as $index => $struc) {
-                        $subkey = preg_replace('/[^a-zA-Z0-9_]/', '', $struc);
-                        if($index == 0) {
-                            continue;
-                        }elseif($index == 1){
-                            $new_index = $subkey;
-                        }else{
-                            $struc_arr[$subkey] = $value;
+                    if (count($key_arr) > 2) {
+                        foreach ($key_arr as $index => $struc) {
+                            $subkey = preg_replace('/[^a-zA-Z0-9_]/', '', $struc);
+                            if($index == 0) {
+                                continue;
+                            }elseif($index == 1){
+                                $new_index = $subkey;
+                            }else{
+                                $struc_arr[$subkey] = $value;
+                            }
+                            $wcmp_table_rate[$new_index] = $struc_arr;
                         }
-                        $wcmp_table_rate[$new_index] = $struc_arr;
+                    } else {
+                        foreach ($value as $index => $struc) {
+                            $subkey = preg_replace('/[^a-zA-Z0-9_]/', '', $index);
+                            $struc_arr[$subkey] = $struc;
+                            $wcmp_table_rate[$key_arr[1]] = $struc_arr;
+                        }
                     }
                 }elseif( $key == 'shipping_method_id') {
                     $shipping_method_id = $value;
