@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
                 rate_id: checkedRate
             };
             $.post(wcmp_advanced_shipping_script_data.ajax_url, data, function (response) {
-                window.location = window.location.href;
+                window.location.reload();
             });
         }
     });

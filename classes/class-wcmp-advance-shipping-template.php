@@ -78,14 +78,32 @@ class WCMp_Advance_Shipping_Template {
                             .'</tr></thead>'
                             .'<tbody>';
                 $table_rates = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_shipping_table_rates WHERE `rate_class` = {$shipping_class_id} AND `shipping_method_id` = {$raw_method->instance_id} order by 'shipping_method_id' ", OBJECT);
-                if( $table_rates ) :
+                if( $table_rates ) {
                     foreach ($table_rates as $table_rate) {
                         ob_start();
                         $WCMp_Advance_Shipping->template->get_template('wcmp_advance_shipping_template_table_rate_item.php', array('option' => $table_rate, 'shipping_method_id' => $raw_method->instance_id));
                         $item_row = ob_get_clean();
                         $settings_html .= $item_row;
                     }
-                endif;
+                } else {
+                    ob_start();
+                    $option = new stdClass();
+                    $option->rate_id = '';
+                    $option->rate_class = $shipping_class_id;
+                    $option->rate_condition = '';
+                    $option->rate_min = '';
+                    $option->rate_max = '';
+                    $option->rate_priority = 0;
+                    $option->rate_abort = 0;
+                    $option->rate_cost = '';
+                    $option->rate_cost_per_item = '';
+                    $option->rate_cost_per_weight_unit = '';
+                    $option->rate_cost_percent = '';
+                    $option->rate_label = '';
+                    $WCMp_Advance_Shipping->template->get_template('wcmp_advance_shipping_template_table_rate_item.php', array('option' => $option, 'shipping_method_id' => $raw_method->instance_id));
+                    $item_row = ob_get_clean();
+                    $settings_html .= $item_row;
+                }
                 
                 $settings_html .= '</tbody>' 
                         .'<tfoot><tr>'
