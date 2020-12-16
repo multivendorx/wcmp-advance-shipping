@@ -5,7 +5,7 @@
  * Plugin URI: https://wc-marketplace.com/
  * Description: A free Addon Bridging WC Marketplace and WC Table Rate Shipping.
  * Author: WC Marketplace
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author URI: https://wc-marketplace.com/
  * 
  * Text Domain: wcmp-advance-shipping
