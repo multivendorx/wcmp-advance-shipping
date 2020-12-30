@@ -7,6 +7,9 @@ class WCMp_Advance_Shipping_Admin {
     public function __construct() {
         add_action('admin_init', array(&$this, 'save_wcmp_table_rate_shipping'));
         add_action('admin_enqueue_scripts', array( $this, 'wcmp_table_rate_shipping_admin_enqueue_scripts'));
+        add_action('wcmp_vendor_preview_tabs_post', array( $this, 'wcmp_vendor_policy'));
+        add_action('wcmp_vendor_preview_tabs_form_post', array( $this, 'wcmp_vendor_policy_content'));
+        add_action('wcmp_vendor_details_update', array( $this, 'save_wcmp_vendor_shipping_policy'), 10, 2);
     }
 
     function load_class($class_name = '') {
@@ -26,6 +29,7 @@ class WCMp_Advance_Shipping_Admin {
         $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
         wp_enqueue_script( 'wcmp_advanced_shipping_frontend', $frontend_style_path . 'js/frontend' . $suffix . '.js', array( 'jquery' ), $WCMp_Advance_Shipping->version);
+        wp_enqueue_style('admin_css', $WCMp_Advance_Shipping->plugin_url . 'assets/admin/css/admin.css', array(), $WCMp_Advance_Shipping->version);
         $screen = get_current_screen();
         $wcmp_shipping_screen = apply_filters( 'wcmp_table_rate_js_inclide_pages', array('wcmp_page_vendors', 'toplevel_page_dc-vendor-shipping'));
         if (in_array($screen->id, $wcmp_shipping_screen)) {
@@ -133,5 +137,52 @@ class WCMp_Advance_Shipping_Admin {
         </div>
         <?php
     }
+    public function wcmp_vendor_policy($is_approved_vendor){
+        if($is_approved_vendor && get_wcmp_vendor_settings( 'is_policy_on', 'general' ) == 'Enable' ) {
+            ?>
+            <li> 
+                <a href="#vendor-policy"><span class="dashicons dashicons-lock"></span> <?php echo __('Vendor Policy', 'wcmp-advance-shipping'); ?></a>
+            </li>
+            <?php
+        }    
+    }
+    public function wcmp_vendor_policy_content($is_approved_vendor){
+        if ($is_approved_vendor && get_wcmp_vendor_settings( 'is_policy_on', 'general' ) == 'Enable' ) {
+        global $WCMp;
+        $content = '';
+            ?>
+            <div id="vendor-policy">
+                <?php
+                $vendor = get_wcmp_vendor($_GET['ID']);
+                $content .= '<h2>' . __('Policy Settings', 'wcmp-advance-shipping') . '</h2>';
+                $content .= '<div class="wcmp-form-field">';
+                $policy_tab_options = array(
+                                    "vendor_shipping_policy" => array('label' => __('Shipping Policy', 'dc-woocommerce-multi-vendor'), 'type' => 'wpeditor', 'id' => 'vendor_shipping_policy', 'label_for' => 'vendor_shipping_policy', 'name' => 'vendor_shipping_policy', 'cols' => 50, 'rows' => 6, 'value' => $vendor->shipping_policy), // Textarea
+                                    "vendor_refund_policy" => array('label' => __('Refund Policy', 'dc-woocommerce-multi-vendor'), 'type' => 'wpeditor', 'id' => 'vendor_refund_policy', 'label_for' => 'vendor_refund_policy', 'name' => 'vendor_refund_policy', 'cols' => 50, 'rows' => 6, 'value' => $vendor->refund_policy), // Textarea
+                                    "vendor_cancellation_policy" => array('label' => __('Cancellation/Return/Exchange Policy', 'dc-woocommerce-multi-vendor'), 'type' => 'wpeditor', 'id' => 'vendor_cancellation_policy', 'label_for' => 'vendor_cancellation_policy', 'name' => 'vendor_cancellation_policy', 'cols' => 50, 'rows' => 6, 'value' => $vendor->cancellation_policy), // Textarea
+                                );  
+                $content .= '</div>';
+                
+                echo apply_filters('wcmp_vendor_policy_settings', $content);
+                $WCMp->wcmp_wp_fields->dc_generate_form_field( $policy_tab_options );
+                ?>
+            </div>
+            <?php
+        }
+    }
 
+    public function save_wcmp_vendor_shipping_policy($post, $vendor){
+    // Policy tab data save
+        if ( get_wcmp_vendor_settings( 'is_policy_on', 'general' ) == 'Enable' ) {
+            if ( isset( $post['vendor_shipping_policy'] ) ) {
+                update_user_meta( $vendor->id, 'vendor_shipping_policy', stripslashes( html_entity_decode( $post['vendor_shipping_policy'], ENT_QUOTES, get_bloginfo( 'charset' ) ) ) );
+            }
+            if ( isset( $post['vendor_refund_policy'] ) ) {
+                update_user_meta( $vendor->id, 'vendor_refund_policy', stripslashes( html_entity_decode( $post['vendor_refund_policy'], ENT_QUOTES, get_bloginfo( 'charset' ) ) ) );
+            }
+            if ( isset( $post['vendor_cancellation_policy'] ) ) {
+                update_user_meta( $vendor->id, 'vendor_cancellation_policy', stripslashes( html_entity_decode( $post['vendor_cancellation_policy'], ENT_QUOTES, get_bloginfo( 'charset' ) ) ) );
+            }
+        }
+    }
 }
