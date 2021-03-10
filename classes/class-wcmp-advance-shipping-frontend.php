@@ -3,10 +3,12 @@
 class WCMp_Advance_Shipping_Frontend {
 
     public function __construct() {
+        global $WCMp
         add_action('wcmp_before_update_shipping_method', array(&$this, 'save_wcmp_table_rate_shipping'));
         add_action('wcmp_frontend_enqueue_scripts', array(&$this, 'frontend_styles'));
         add_filter( 'woocommerce_package_rates', array(&$this, 'wcmp_hide_table_rate_when_disabled' ), 99, 2 );
-
+        remove_action('wp_ajax_wcmp-toggle-shipping-method', array($WCMp->ajax, 'wcmp_toggle_shipping_method'));
+        add_action('wp_ajax_wcmp-toggle-shipping-method', array(&$this, 'wcmp_table_rate_toggle_shipping_method'));
     }
 
     public function save_wcmp_table_rate_shipping($postedData) {
@@ -153,6 +155,38 @@ class WCMp_Advance_Shipping_Frontend {
             }
         }
         return !empty( $table_rate ) ? $table_rate : $rates;
+    }
+
+    public function wcmp_table_rate_toggle_shipping_method() {
+        global $WCMp, $wpdb;
+        $instance_id = isset($_POST['instance_id']) ? wc_clean($_POST['instance_id']) : 0;
+        $zone_id = isset($_POST['zoneID']) ? wc_clean($_POST['zoneID']) : 0;
+        $checked_data = isset($_POST['checked']) ? wc_clean($_POST['checked']) : '';
+        $find_method_id_by_instance = $wpdb->get_results($wpdb->prepare("SELECT method_id FROM {$wpdb->prefix}wcmp_shipping_zone_methods WHERE `instance_id` = %d", $instance_id) );
+        if ( !empty($find_method_id_by_instance) && $find_method_id_by_instance[0]->method_id == 'table_rate' ) {
+            $shipping_class_id = get_user_meta(get_current_vendor_id(), 'shipping_class_id', true);
+            $table_rates = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}woocommerce_shipping_table_rates WHERE `rate_class` = {$shipping_class_id} order by 'shipping_method_id' ", OBJECT);
+            if (!empty($table_rates)) {
+                foreach ($table_rates as $key => $value) {
+                    $checked = ( $_POST['checked'] == 'true' ) ? 0 : 1;
+                    $wpdb->query($wpdb->prepare("UPDATE {$wpdb->prefix}woocommerce_shipping_table_rates SET rate_abort=%d WHERE rate_class=%d", $checked, $value->rate_class ) );
+                }
+            }
+        }
+        $data = array(
+            'instance_id' => $instance_id,
+            'zone_id' => $zone_id,
+            'checked' => ( $checked_data == 'true' ) ? 1 : 0
+        );
+        if( !class_exists( 'WCMP_Shipping_Zone' ) ) {
+            $WCMp->load_vendor_shipping();
+        }
+        $result = WCMP_Shipping_Zone::toggle_shipping_method($data);
+        if (is_wp_error($result)) {
+            wp_send_json_error($result->get_error_message());
+        }
+        $message = $data['checked'] ? __('Shipping method enabled successfully', 'dc-woocommerce-multi-vendor') : __('Shipping method disabled successfully', 'dc-woocommerce-multi-vendor');
+        wp_send_json_success($message);
     }
 
 }
