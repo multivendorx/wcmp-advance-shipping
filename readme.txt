@@ -3,9 +3,9 @@ Contributors:   wcmp, rajsekharchatterjee11
 Tags: wcmp advanced shipping,wc marketplace, wc market place, woocommerce product vendors, WooCommerce vendors, woocommerce marketplace, vendor, vendors, vendor system, woocommerce market place, WooCommerce multivendor, WooCommerce multi vendor, woocommerce vendors, woo vendors, WooCommerce vendors, Shipping,Woocommerce Shipping,wc marketplace shipping, wcmp shipping, multivendor, multi vendor, multi vendors,  multi seller
 Donate link: https://wc-marketplace.com/donate
 Requires at least: 4.4
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,11 @@ Ans. This plugin is applicable for WCMp version 2.6.0.
 2. Front-end Table rate shipping.
 
 == Changelog ==
+
+= 1.1.3 - 2021-03-15 =
+* Added - Compatibility of WordPress 5.7 added.
+* Added - Compatibility of WooCommerce 5.1.0 added.
+* Fixed - Table rate is visible, even though this is disabled by vendor #1.
 
 = 1.1.2 - 2020-12-16 =
 * Added - Compatibility of WordPress 5.6 added.
